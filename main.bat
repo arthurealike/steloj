@@ -1,22 +1,39 @@
- set kernel_options no_blank_lines player1colors
+ rem set kernel_options no_blank_lines
+ rem set kernel_options player1colors playercolors pfcolors
 
+  dim fire=1
+  dim enemyshot=0
+  dim playershot=0
+  rem ENAM0=%11111111
+  rem ENAM1=%11111111
   a=20
   b=59
+  dim defmisx=26
+  dim defmisy=49
+  dim misx=defmisx
+  dim misy=defmisy
   x=110
   y=50
   r=0
   l=1
   scorecolor=14
   ballheight=3
+  
+  missile1height=1
+  dim missile=1
+
+  player1x=a+110
+  player1y=b
 
 main
   COLUP0=$58
-  COLUPF=$30
+  COLUPF=$34
   COLUBK=$01
   
   f=f+1
-  
-  if r=0 then player0:
+
+player0anim
+ if r=0 then player0:
     %00000000
     %00000000
     %00000000
@@ -73,16 +90,266 @@ end
     %00000000
 end
 
+
+  if enemyshot=0 then goto player1anim
+
+
+enemyshot
+  if enemyshot=1 && f = 10 then player1:
+        %00000000
+        %00000000
+        %00000000
+        %00000000
+        %00000000
+        %00010000
+        %00111000
+        %00010000
+        %00000000
+        %00000000
+        %00000000
+        %00000000
+end
+  if enemyshot=1 && f=20 then player1:
+        %00000000
+        %00000000
+        %00000000
+        %00010000
+        %00111000
+        %01111100
+        %00111000
+        %00010000
+        %00000000
+        %00000000
+        %00000000
+        %00000000
+end
+  if enemyshot=1 && f = 30 then player1:
+        %00000000
+        %00000000
+        %00010000
+        %00111000
+        %01111100
+        %11111110
+        %01111100
+        %00111000
+        %00010000
+        %00000000
+        %00000000
+        %00000000
+end
+  if enemyshot=1 && f = 40 then player1:
+        %00100000
+        %00000100
+        %10010000
+        %00111001
+        %01111100
+        %11111110
+        %01111100
+        %00111000
+        %10010001
+        %00000100
+        %01000010
+        %00010000
+end
+  if enemyshot=1 && f = 50 then player1:
+        %10000001
+        %00000000
+        %00010000
+        %00111000
+        %01101100
+        %11000110
+        %01101100
+        %00111000
+        %00010001
+        %00000000
+        %00000000
+        %10010001
+end
+  if enemyshot=1 && f = 60 then player1:
+        %00000000
+        %01000000
+        %00000010
+        %00010000
+        %00000000
+        %01000100
+        %00000000
+        %00010000
+        %01000000
+        %00000010
+        %00000000
+        %00000000
+end 
+  
+  if enemyshot=1 then goto gamelogic 
+  
+ 
+player1anim
+  enemyshot=0
+  if f = 10 then player1:
+        %00000000
+        %00000000
+        %00000000
+        %00000001
+        %00000010
+        %00000010
+        %00000100
+        %00000100
+        %00000100
+        %11101001
+        %11110010
+        %11110100
+        %11111100
+        %11110000
+        %11111000
+        %11101000
+        %00010110
+        %00010010
+        %00001001
+        %00000100
+        %00000100
+        %00000010
+        %00000001
+        %00000000
+        %00000000
+end
+
+  if  f = 20 then player1:
+        %00000000
+        %00000000
+        %00000001
+        %00000010
+        %00000010
+        %00000010
+        %00000100
+        %00000100
+        %00000101
+        %11101010
+        %11110010
+        %11110100
+        %11111100
+        %11110000
+        %11111000
+        %11101000
+        %00010100
+        %00010010
+        %00001001
+        %00000100
+        %00000100
+        %00000100
+        %00000010
+        %00000010
+        %00000001
+end
+
+  if f = 30 then player1:
+        %00000000
+        %00000000
+        %00000100
+        %00000010
+        %00000010
+        %00000010
+        %00000100
+        %00000100
+        %00000101
+        %11101010
+        %11110010
+        %11110100
+        %11111100
+        %11110000
+        %11111000
+        %11101000
+        %00010100
+        %00010010
+        %00001010
+        %00000100
+        %00000100
+        %00000100
+        %00000010
+        %00000010
+        %00000100
+end
+  if f = 40 then player1:
+        %00000000
+        %00000000
+        %00000010
+        %00000010
+        %00000010
+        %00000010
+        %00000100
+        %00000100
+        %00000100
+        %11101010
+        %11110010
+        %11110100
+        %11111100
+        %11110000
+        %11111000
+        %11101000
+        %00010100
+        %00010010
+        %00001010
+        %00000100
+        %00000110
+        %00000100
+        %00000010
+        %00000010
+        %00000010
+end
+  
+  if  f = 50 then player1:
+        %00000000
+        %00000000
+        %00000001
+        %00000010
+        %00000010
+        %00000010
+        %00000100
+        %00000100
+        %00000111
+        %11101010
+        %11110010
+        %11110100
+        %11111100
+        %11110000
+        %11111000
+        %11101000
+        %00010100
+        %00010010
+        %00001011
+        %00000100
+        %00000100
+        %00000100
+        %00000010
+        %00000010
+        %00000001
+end
+
+gamelogic
+  if enemyshot=1 then enemyshot=0
+
+  if switchreset then reboot
   if r>7 then r=0
-  if f>60 then score=score+1
-  if f>60 then f=0
+  if f>=60 then score=score+1 : f=0
+
   r=1
   if y>70 then r=0
   if y<35 then r=2
-  if switchreset then reboot
+  if joy0fire then fire=1
+  if fire=1 && misx < a then misx=misx+1
+  if fire=1 && misx > a then misx=misx-1
+  if fire=1 && misy < b then misy=misy+1
+  if fire=1 && misy > b then misy=misy-1
+  if misx>120 then fire=0
+  
+  missile0x=misx
+  missile0y=misy
+  
+ rem missile1y=b-10
+ rem missile1x=a+7
   
   player0x=a
   player0y=b
+  
   ballx=x
   bally=y
 
@@ -93,7 +360,6 @@ end
   
   if joy0right then x=x+1 
   if joy0left then x=x-1
-
   if joy0up then y=y-1
   if joy0down then y=y+1
 
